@@ -1,0 +1,5 @@
+[user]
+	name = Dav
+	email = davgothic@gmail.com
+[core]
+	excludesfile = ~/.gitignore

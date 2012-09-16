@@ -1,0 +1,74 @@
+# Functions
+
+# Extract all sorts of archives
+extract() {
+	[[ -z "$1" ]] && { echo >&2 "Usage: extract [FILE NAME]"; return 1; }
+
+	[[ ! -f "$1" ]] && { echo >&2 "'$1' is not a valid file!"; return 1; }
+
+	case "$1" in
+		*.tar.bz2)  tar xvjf "$1"    ;;
+		*.tar.gz)   tar xvzf "$1"    ;;
+		*.bz2)      bunzip2 "$1"     ;;
+		*.rar)      unrar x "$1"     ;;
+		*.gz)       gunzip "$1"      ;;
+		*.tar)      tar xvf "$1"     ;;
+		*.tbz2)     tar xvjf "$1"    ;;
+		*.tgz)      tar xvzf "$1"    ;;
+		*.zip)      unzip "$1"       ;;
+		*.Z)        uncompress "$1"  ;;
+		*.7z)       7z x "$1"        ;;
+		*)          echo >&2 "'$1' is not a supported archive format"; return 1;
+	esac
+}
+
+# Quick find
+f() {
+	[[ -z "$@" ]] && { echo >&2 "Usage: f [FILE NAME]"; return 1; }
+	
+	find . -iname "*$@*.*" | grep --color "$@"
+}
+
+# Change to a directory then list its contents
+cdl() {
+	[[ -z "$1" ]] && { echo >&2 "Usage: cdl [DIRECTORY]"; return 1; }
+
+	[[ ! -d "$1" ]] && { echo >&2 "'$1' is not a valid directory!"; return 1; }
+
+	cd "$1" && ls
+}
+
+# Create a directory then change to it
+mkcd() {
+	[[ -z "$1" ]] && { echo >&2 "Usage: mkcd [DIRECTORY]"; return 1; }
+
+	if [[ ! -d "$1" ]]; then
+		mkdir "$1"
+	fi
+
+	cd "$1"
+}
+
+# Quickly backup a file
+bu() {
+	[[ -z "$1" ]] && { echo >&2 "Usage: bu [FILE NAME]"; return 1; }
+
+	[[ ! -f "$1" ]] && { echo >&2 "'$1' is not a valid file!"; return 1; }
+
+	cp "$1" `basename "$1"`-`date +%Y%m%d%H%M`.backup ;
+}
+
+# Query the Operating System
+os() {
+	os=$(uname -s)
+
+	if [[ "$os" =~ "CYGWIN" ]]; then
+		echo "Windows"
+	elif [[ "$os" =~ "Linux" ]]; then
+		echo "Linux"
+	elif [[ "$os" =~ "Darwin" ]]; then
+		echo "OSX"
+	else
+		echo "UNKNOWN"
+	fi
+}

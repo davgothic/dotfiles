@@ -1,0 +1,34 @@
+# Aliases
+
+alias clear='echo -e "\e[2J"'
+
+# Set colors for ls
+alias ls="ls -F --color"
+export LS_COLORS="fi=31:di=01;90:ln=31:pi=5:so=5:bd=5:cd=5:or=31"
+
+# List all files/directories, including hidden
+alias la="ls -A"
+alias lla="ls -lhA"
+
+# List only directories
+alias lsd="ls -lA | grep '^d'"
+
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+alias ~="cd ~" # `cd` is probably faster to type though
+alias -- -="cd -"
+
+alias grep="grep --color=always"
+
+alias gs="git status"
+alias gd="git diff"
+alias ga="git add"
+alias gc="git commit"
+alias gca="git commit -a"
+alias gco="git checkout"
+alias gb="git branch"
+
+# Get IP address
+alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
