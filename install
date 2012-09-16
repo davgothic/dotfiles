@@ -5,7 +5,7 @@ DOTFILES="$HOME/.dotfiles"
 hash git 2>&- || { echo >&2 "Git is required but missing."; exit 1; }
 
 if [[ ! -d $DOTFILES ]]; then
-	git clone -q git@github.com:davgothic/dotfiles.git $DOTFILES
+	git clone -q git://github.com/davgothic/dotfiles.git $DOTFILES
 	[[ ! -d $DOTFILES ]] && { echo >&2 "Could not clone the dotfiles repository."; exit 1; }
 fi
 
